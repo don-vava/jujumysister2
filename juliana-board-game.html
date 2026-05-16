@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Juliana's Recovery Journey 👑</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#ff6eb4;
+  --pink-light:#ffb3d9;
+  --pink-pale:#fff0f8;
+  --fuchsia:#e91e8c;
+  --purple:#8b5cf6;
+  --purple-light:#c4b5fd;
+  --yellow:#ffd93d;
+  --yellow-light:#fff3b0;
+  --green:#22c55e;
+  --red:#ef4444;
+  --bg:#fff5fb;
+  --white:#ffffff;
+  --dark:#1a0a14;
+  --text:#3d1a2e;
+  --muted:#9d6b8a;
+  --border:#f0c0de;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* Animated dots background */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    radial-gradient(circle at 15% 20%, #ff6eb422 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, #8b5cf622 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, #ffd93d11 0%, transparent 50%);
+  pointer-events:none;z-index:0;
+}
+
+/* ===== HEADER ===== */
+header{
+  position:relative;z-index:10;
+  text-align:center;
+  padding:2rem 1rem 1rem;
+  border-bottom:2px dashed var(--border);
+  background:var(--white);
+}
+.joe-logo{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--dark);color:var(--white);
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:8px 18px;border-radius:4px;
+  margin-bottom:16px;
+}
+.joe-logo .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--pink);display:inline-block;
+}
+header h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,6vw,44px);
+  color:var(--fuchsia);
+  line-height:1.1;margin-bottom:6px;
+}
+header p{font-size:14px;color:var(--muted);margin-bottom:16px;}
+.artists-strip{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:4px;
+}
+.artist-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;border:1.5px solid;
+}
+.chip-drake{background:#1a1a2e;color:#fff;border-color:#333;}
+.chip-wb{background:#ff6eb422;color:var(--fuchsia);border-color:var(--pink);}
+.chip-chris{background:#ffd93d22;color:#a06000;border-color:var(--yellow);}
+.chip-wiz{background:#8b5cf622;color:var(--purple);border-color:var(--purple-light);}
+
+/* ===== MAIN LAYOUT ===== */
+#app{
+  position:relative;z-index:1;
+  max-width:900px;margin:0 auto;
+  padding:1rem 1rem 3rem;
+}
+
+/* ===== SCREENS ===== */
+.screen{display:none;}
+.screen.active{display:block;animation:fadeUp 0.4s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== SPLASH ===== */
+#splash{text-align:center;padding:2rem 0;}
+.big-emoji{font-size:80px;display:block;animation:bounce 2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-12px) rotate(5deg)}}
+#splash h2{
+  font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,34px);
+  color:var(--text);margin:12px 0 8px;line-height:1.2;
+}
+#splash .tagline{font-size:15px;color:var(--muted);margin-bottom:28px;line-height:1.7;}
+#splash .tagline strong{color:var(--fuchsia);}
+
+.rules-card{
+  background:var(--white);border:2px solid var(--border);
+  border-radius:16px;padding:20px;margin:0 auto 24px;
+  max-width:460px;text-align:left;
+}
+.rules-card h3{
+  font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--fuchsia);margin-bottom:12px;
+}
+.rule-row{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;color:var(--text);line-height:1.5;
+  padding:6px 0;border-bottom:1px solid var(--border);
+}
+.rule-row:last-child{border-bottom:none;}
+.rule-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+.btn-play{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--fuchsia),var(--pink));
+  color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:16px;
+  border:none;border-radius:50px;padding:16px 44px;cursor:pointer;
+  box-shadow:0 6px 24px #e91e8c44;
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-play:hover{transform:scale(1.04);box-shadow:0 8px 32px #e91e8c66;}
+.btn-play:active{transform:scale(0.97);}
+
+/* ===== GAME ===== */
+#game{padding:1rem 0;}
+.game-topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--white);border:2px solid var(--border);
+  border-radius:12px;padding:12px 18px;margin-bottom:16px;
+  flex-wrap:wrap;gap:10px;
+}
+.stat-item{text-align:center;}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.stat-val{font-size:20px;font-weight:700;color:var(--fuchsia);}
+
+.dice-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--purple),var(--fuchsia));
+  color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:15px;
+  border:none;border-radius:50px;padding:12px 28px;cursor:pointer;
+  box-shadow:0 4px 16px #8b5cf644;
+  transition:transform .15s,box-shadow .15s;
+}
+.dice-btn:hover:not(:disabled){transform:scale(1.05);}
+.dice-btn:disabled{opacity:0.5;cursor:not-allowed;}
+
+/* ===== BOARD ===== */
+.board-wrap{
+  background:var(--white);border:2px solid var(--border);
+  border-radius:20px;padding:1rem;margin-bottom:16px;
+  overflow-x:auto;
+}
+.board{
+  display:grid;
+  gap:6px;
+  width:100%;
+}
+.cell{
+  border-radius:10px;border:2px solid var(--border);
+  aspect-ratio:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-size:11px;font-weight:600;text-align:center;
+  padding:4px;cursor:default;
+  position:relative;
+  min-width:56px;
+  transition:transform .2s,box-shadow .2s;
+  background:var(--pink-pale);
+}
+.cell.start{background:linear-gradient(135deg,#ffd93d,#ffb300);border-color:#d4a000;}
+.cell.finish{background:linear-gradient(135deg,var(--fuchsia),#ff80c0);border-color:var(--fuchsia);color:#fff;}
+.cell.boost{background:#f0fff4;border-color:#86efac;}
+.cell.trap{background:#fff1f2;border-color:#fca5a5;}
+.cell.question{background:#faf5ff;border-color:var(--purple-light);}
+.cell.joe{background:linear-gradient(135deg,#fff0f8,#ffd6f0);border-color:var(--pink);}
+.cell.normal{background:var(--pink-pale);border-color:var(--border);}
+
+.cell-num{
+  font-size:9px;color:var(--muted);
+  position:absolute;top:3px;left:5px;
+}
+.cell-icon{font-size:20px;line-height:1;}
+.cell-label{font-size:9px;color:var(--muted);margin-top:2px;line-height:1.2;}
+
+.player-token{
+  width:24px;height:24px;border-radius:50%;
+  background:linear-gradient(135deg,var(--fuchsia),var(--pink));
+  border:2px solid #fff;box-shadow:0 2px 8px #e91e8c66;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+  position:absolute;bottom:4px;right:4px;
+  animation:token-pop .3s cubic-bezier(.34,1.56,.64,1);
+  z-index:2;
+}
+@keyframes token-pop{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* ===== CARD POPUP ===== */
+.overlay{
+  display:none;position:fixed;inset:0;
+  background:#1a0a1488;z-index:100;
+  align-items:center;justify-content:center;
+  padding:1rem;
+}
+.overlay.open{display:flex;}
+.popup-card{
+  background:var(--white);border-radius:20px;
+  max-width:420px;width:100%;
+  box-shadow:0 20px 60px #e91e8c33;
+  overflow:hidden;
+  animation:card-in .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes card-in{from{transform:scale(.7) translateY(40px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+
+.popup-header{
+  padding:20px 20px 14px;
+  display:flex;align-items:center;gap:12px;
+}
+.popup-header.pink-h{background:linear-gradient(135deg,var(--fuchsia),var(--pink));}
+.popup-header.green-h{background:linear-gradient(135deg,#16a34a,#22c55e);}
+.popup-header.red-h{background:linear-gradient(135deg,#dc2626,#ef4444);}
+.popup-header.purple-h{background:linear-gradient(135deg,var(--purple),#a78bfa);}
+.popup-header.yellow-h{background:linear-gradient(135deg,#ca8a04,#ffd93d);}
+.popup-header-icon{font-size:40px;}
+.popup-header-text h3{font-size:18px;font-weight:700;color:#fff;}
+.popup-header-text p{font-size:12px;color:#ffffffbb;}
+
+.popup-body{padding:20px;}
+.popup-body .card-text{
+  font-size:16px;line-height:1.6;color:var(--text);
+  margin-bottom:16px;
+}
+.popup-body .card-text strong{color:var(--fuchsia);}
+
+/* Question mode */
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.q-opt{
+  background:var(--pink-pale);border:1.5px solid var(--border);
+  border-radius:10px;padding:12px 10px;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  cursor:pointer;text-align:center;color:var(--text);
+  transition:all .15s;
+}
+.q-opt:hover:not(:disabled){border-color:var(--pink);background:#ffe0f0;}
+.q-opt.q-correct{background:#f0fff4;border-color:#22c55e;color:#166534;}
+.q-opt.q-wrong{background:#fff1f2;border-color:#ef4444;color:#991b1b;}
+.q-opt:disabled{cursor:default;}
+.q-feedback{font-size:13px;color:var(--muted);text-align:center;margin-bottom:12px;line-height:1.5;}
+
+.popup-footer{
+  padding:0 20px 20px;display:flex;justify-content:center;
+}
+.btn-ok{
+  background:linear-gradient(135deg,var(--fuchsia),var(--pink));
+  color:#fff;border:none;border-radius:50px;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;
+  padding:12px 36px;cursor:pointer;
+  transition:transform .15s;
+}
+.btn-ok:hover{transform:scale(1.04);}
+
+/* ===== END SCREEN ===== */
+#endscreen{text-align:center;padding:2rem 0;}
+.end-trophy{font-size:80px;display:block;animation:bounce 2s ease-in-out infinite;}
+#endscreen h2{
+  font-family:'Playfair Display',serif;font-size:clamp(26px,6vw,40px);
+  color:var(--fuchsia);margin:12px 0 8px;
+}
+.end-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  max-width:380px;margin:20px auto;
+}
+.end-stat{
+  background:var(--white);border:2px solid var(--border);border-radius:12px;
+  padding:16px 8px;
+}
+.end-stat-val{font-size:28px;font-weight:700;color:var(--fuchsia);}
+.end-stat-label{font-size:11px;color:var(--muted);margin-top:2px;}
+.recovery-msg{
+  background:var(--white);border:2px solid var(--border);border-radius:16px;
+  padding:22px;max-width:480px;margin:20px auto;
+  position:relative;overflow:hidden;
+}
+.recovery-msg::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--fuchsia),var(--yellow),var(--purple));
+}
+.recovery-msg .from{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.recovery-msg p{font-size:15px;line-height:1.8;color:var(--text);font-style:italic;}
+.recovery-msg .sig{margin-top:12px;font-weight:700;color:var(--fuchsia);font-style:normal;font-size:15px;}
+
+.btn-restart{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--purple),var(--fuchsia));
+  color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:15px;
+  border:none;border-radius:50px;padding:14px 36px;cursor:pointer;
+  box-shadow:0 4px 20px #8b5cf644;margin-top:8px;
+  transition:transform .15s;
+}
+.btn-restart:hover{transform:scale(1.04);}
+
+/* ===== LOG ===== */
+.log-area{
+  background:var(--white);border:2px solid var(--border);
+  border-radius:12px;padding:14px 16px;max-height:120px;overflow-y:auto;
+  margin-bottom:12px;
+}
+.log-entry{font-size:13px;color:var(--text);padding:3px 0;border-bottom:1px solid var(--border);}
+.log-entry:last-child{border-bottom:none;}
+
+/* Album images */
+.album-img{
+  width:60px;height:60px;border-radius:8px;object-fit:cover;
+  border:2px solid var(--border);flex-shrink:0;
+}
+
+@media(max-width:520px){
+  .q-options{grid-template-columns:1fr;}
+  .end-stats{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="joe-logo"><span class="dot"></span> JOE &amp; THE JUICE <span class="dot"></span></div>
+  <h1>Juliana's Recovery Journey</h1>
+  <p>Un jeu de parcours rien que pour toi 👑</p>
+  <div class="artists-strip">
+    <span class="artist-chip chip-drake">🎤 Drake</span>
+    <span class="artist-chip chip-wb">🌟 Wizkid</span>
+    <span class="artist-chip chip-chris">💫 Chris Brown</span>
+    <span class="artist-chip chip-wiz">🎧 Joe &amp; Juice</span>
+  </div>
+</header>
+
+<div id="app">
+
+  <!-- SPLASH -->
+  <div id="splash" class="screen active">
+    <span class="big-emoji">🧃</span>
+    <h2>Pour la GOAT qui revient 🔥</h2>
+    <p class="tagline">
+      Juliana, ce jeu de parcours c'est pour toi.<br>
+      Lance le dé, réponds aux questions et traverse<br>
+      <strong>30 cases</strong> pour atteindre ton retour en forme !
+    </p>
+    <div class="rules-card">
+      <h3>🗺️ Comment jouer</h3>
+      <div class="rule-row"><span class="rule-icon">🎲</span><span>Lance le dé pour avancer de 1 à 6 cases</span></div>
+      <div class="rule-row"><span class="rule-icon">☕</span><span>Cases Joe & Juice : pioche un bonus boisson !</span></div>
+      <div class="rule-row"><span class="rule-icon">🎵</span><span>Cases Question : réponds sur tes artistes et gagne des cases bonus</span></div>
+      <div class="rule-row"><span class="rule-icon">⚡</span><span>Cases Boost : avance encore !</span></div>
+      <div class="rule-row"><span class="rule-icon">😱</span><span>Cases Piège : recule un peu</span></div>
+      <div class="rule-row"><span class="rule-icon">🏆</span><span>Atteins la case 30 pour la victoire !</span></div>
+    </div>
+    <button class="btn-play" onclick="startGame()">🎲 Jouer maintenant !</button>
+  </div>
+
+  <!-- GAME -->
+  <div id="game" class="screen">
+    <div class="game-topbar">
+      <div class="stat-item">
+        <div class="stat-label">Position</div>
+        <div class="stat-val" id="stat-pos">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Lancers</div>
+        <div class="stat-val" id="stat-rolls">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Score ✨</div>
+        <div class="stat-val" id="stat-score">0</div>
+      </div>
+      <button class="dice-btn" id="dice-btn" onclick="rollDice()">🎲 Lancer le dé</button>
+    </div>
+
+    <div class="board-wrap">
+      <div class="board" id="board"></div>
+    </div>
+
+    <div class="log-area" id="log-area">
+      <div class="log-entry">🧃 Juliana prête à tout déchirer ! Lance le dé pour commencer.</div>
+    </div>
+  </div>
+
+  <!-- END -->
+  <div id="endscreen" class="screen">
+    <span class="end-trophy">🏆</span>
+    <h2>Juliana, tu as gagné !</h2>
+    <div class="end-stats">
+      <div class="end-stat"><div class="end-stat-val" id="e-rolls">—</div><div class="end-stat-label">Lancers</div></div>
+      <div class="end-stat"><div class="end-stat-val" id="e-score">—</div><div class="end-stat-label">Score</div></div>
+      <div class="end-stat"><div class="end-stat-val">👑</div><div class="end-stat-label">GOAT</div></div>
+    </div>
+    <div class="recovery-msg">
+      <div class="from">✉️ Bon rétablissement, Juliana</div>
+      <p>
+        Tu as traversé toutes les cases, les pièges, les questions — et tu es arrivée au bout comme la GOAT que tu es. C'est exactement comme ça que tu vas revenir dans la vraie vie : une case à la fois, à ton rythme, sans jamais t'arrêter. La galerie d'art t'attend, les sneakers aussi, et Joe &amp; The Juice garde ton <em>Tunacado</em> au chaud. 
+        On t'aime Juliana 💛
+      </p>
+      <p class="sig">— Ton équipe de fans forever 🌟</p>
+    </div>
+    <button class="btn-restart" onclick="restart()">🔄 Rejouer</button>
+  </div>
+
+</div>
+
+<!-- POPUP OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="popup-card" id="popup">
+    <div class="popup-header" id="pop-header">
+      <span class="popup-header-icon" id="pop-icon">🎵</span>
+      <div class="popup-header-text">
+        <h3 id="pop-title">Titre</h3>
+        <p id="pop-subtitle">Sous-titre</p>
+      </div>
+    </div>
+    <div class="popup-body">
+      <div class="card-text" id="pop-text"></div>
+      <div id="pop-q-zone"></div>
+      <div class="q-feedback" id="pop-feedback" style="display:none"></div>
+    </div>
+    <div class="popup-footer">
+      <button class="btn-ok" id="pop-ok" onclick="closePopup()">Continuer ✨</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ BOARD SETUP ============
+const TOTAL = 30;
+
+// Cell types: normal, boost, trap, question, joe, start, finish
+const cellDef = {
+  0:  {type:'start',  icon:'🏁', label:'Départ'},
+  5:  {type:'joe',   icon:'☕', label:'Joe & Juice'},
+  7:  {type:'boost', icon:'⚡', label:'+3 cases'},
+  10: {type:'question',icon:'🎵',label:'Question'},
+  12: {type:'trap',  icon:'😴', label:'-2 cases'},
+  14: {type:'joe',   icon:'🧃', label:'Joe & Juice'},
+  16: {type:'boost', icon:'🚀', label:'+2 cases'},
+  18: {type:'question',icon:'👟',label:'Question'},
+  20: {type:'trap',  icon:'🥱', label:'-3 cases'},
+  22: {type:'joe',   icon:'💜', label:'Joe & Juice'},
+  24: {type:'boost', icon:'✨', label:'+2 cases'},
+  26: {type:'question',icon:'🎨',label:'Question'},
+  28: {type:'trap',  icon:'😬', label:'-2 cases'},
+  29: {type:'finish',icon:'🏆', label:'Victoire !'},
+};
+
+// Joe & Juice cards
+const joeCards = [
+  {icon:'☕', title:'Flat White', sub:'Boost caféine !', color:'pink-h', text:'Juliana commande un <strong>Flat White</strong> — la boisson des GOAT. Énergie x2, tu avances de <strong>2 cases bonus</strong> !', bonus:2},
+  {icon:'🧃', title:'Tunacado', sub:'Le sandwich iconique', color:'pink-h', text:'Le fameux <strong>Tunacado</strong> de Joe & The Juice ! Tuna + avocado = combo parfait, comme Juliana. Avance d\'<strong>1 case bonus</strong> !', bonus:1},
+  {icon:'🥤', title:'Pink Smoothie', sub:'Vibe girly supreme', color:'pink-h', text:'Un smoothie rose vibrant ! Joe & The Juice sait faire les choses en grand. Tu gagnes <strong>+2 cases</strong> et +5 points de style 💕', bonus:2},
+  {icon:'🍵', title:'Matcha Latte', sub:'Green power', color:'pink-h', text:'Le <strong>Matcha Pink Foam</strong> — la boisson tendance de Joe & The Juice. Tu avances d\'<strong>1 case</strong> et tu repars pleine d\'énergie !', bonus:1},
+  {icon:'💛', title:'Turbo Joe', sub:'La dose double', color:'yellow-h', text:'Le <strong>Turbo Joe</strong> c\'est un double shot pour les GOAT uniquement. Juliana mérite le meilleur — avance de <strong>3 cases</strong> !', bonus:3},
+];
+
+// Boost events
+const boostCards = [
+  {icon:'🔥', title:'Feu !', sub:'Tu déchires', color:'green-h', text:'La galerie d\'art a organisé un vernissage exceptionnel — tout le monde parle de toi. Tu avances en courant !'},
+  {icon:'👟', title:'New drop !', sub:'Sneakers neuves', color:'green-h', text:'Les nouvelles Jordan viennent de sortir — Juliana les a en exclusivité. Élan de motivation maximum !'},
+  {icon:'🧘‍♀️', title:'Séance Pilates', sub:'Core activé !', color:'green-h', text:'Une séance pilates de folie ! Ton core est béton, Juliana tu es inarrêtable.'},
+];
+
+// Trap events
+const trapCards = [
+  {icon:'😴', title:'Sieste express', sub:'Récupération…', color:'red-h', text:'Juliana fait une petite sieste — même les GOAT ont besoin de repos ! Tu recules un peu, mais tu reviendras plus forte.'},
+  {icon:'📱', title:'TikTok spiral', sub:'2h de scroll…', color:'red-h', text:'Juliana est tombée dans le rabbit hole TikTok de Drake. On comprend. Tu recules de quelques cases.'},
+  {icon:'🛋️', title:'Mode canapé', sub:'Netflix & chill', color:'red-h', text:'Série en boucle sur le canapé — même les reines ont des journées slow. Petit recul, c\'est normal !'},
+];
+
+// Questions
+const allQuestions = [
+  {
+    icon:'🎵', cat:'MUSIC — DRAKE', color:'purple-h',
+    img:'https://upload.wikimedia.org/wikipedia/en/thumb/2/21/Scorpion_by_Drake.jpg/220px-Scorpion_by_Drake.jpg',
+    imgAlt:'Scorpion Drake',
+    q:'Dans quel album de Drake se trouve "God\'s Plan" ?',
+    opts:['Views','Scorpion','More Life','CLB'],
+    ans:1, bonus:2,
+    fact:'Scorpion (2018) — un double album monstre. God\'s Plan est devenu hymne mondial. Juliana +2 cases ! 👑'
+  },
+  {
+    icon:'🎵', cat:'MUSIC — WIZKID', color:'purple-h',
+    img:'https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/Wizkid_-_Made_in_Lagos.png/220px-Wizkid_-_Made_in_Lagos.png',
+    imgAlt:'Made in Lagos Wizkid',
+    q:'Quel album de Wizkid contient "Essence" feat Tems ?',
+    opts:['Sounds From the Other Side','Star Boy','Made in Lagos','More Love Less Ego'],
+    ans:2, bonus:2,
+    fact:'Made in Lagos (2020) est un chef-d\'œuvre Afrobeats. Juliana a le goût parfait ! ✨ +2 cases'
+  },
+  {
+    icon:'🎵', cat:'MUSIC — CHRIS BROWN', color:'purple-h',
+    img:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Chris_Brown_-_Indigo.png/220px-Chris_Brown_-_Indigo.png',
+    imgAlt:'Indigo Chris Brown',
+    q:'"No Guidance" feat Drake est dans quel album de Chris Brown ?',
+    opts:['Fortune','Royalty','Indigo','X'],
+    ans:2, bonus:2,
+    fact:'Indigo (2019) — un banger après l\'autre. Chris x Drake = collab parfaite 🔥 +2 cases !'
+  },
+  {
+    icon:'👟', cat:'SNEAKERS', color:'purple-h',
+    img:'',
+    q:'Les Air Jordan 1 sont sorties en quelle année ?',
+    opts:['1982','1983','1985','1987'],
+    ans:2, bonus:2,
+    fact:'1985 ! Michael Jordan a changé le game des sneakers pour toujours. Juliana sait 👟 +2 cases !'
+  },
+  {
+    icon:'🎨', cat:'ART GALLERY', color:'purple-h',
+    img:'',
+    q:'Quel artiste a réalisé "Les Tournesols" ?',
+    opts:['Monet','Picasso','Van Gogh','Basquiat'],
+    ans:2, bonus:2,
+    fact:'Vincent Van Gogh — un génie absolu. Juliana travaille avec les plus grands ! 🎨 +2 cases'
+  },
+  {
+    icon:'☕', cat:'JOE & THE JUICE', color:'pink-h',
+    img:'',
+    q:'Joe & The Juice vient de quel pays ?',
+    opts:['Suède','Danemark','Norvège','Pays-Bas'],
+    ans:1, bonus:3,
+    fact:'Danemark ! 🇩🇰 Fondé à Copenhague par Kaspar Basse. Une marque lifestyle devenue mondiale. +3 cases !'
+  },
+];
+
+// ============ STATE ============
+let pos = 0, rolls = 0, score = 0;
+let popupCallback = null;
+let answeredQ = false;
+
+function randItem(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+// ============ BOARD RENDER ============
+function buildBoard(){
+  const board = document.getElementById('board');
+  const cols = 6;
+  board.style.gridTemplateColumns = `repeat(${cols},1fr)`;
+  board.innerHTML = '';
+  // Create cells 0..29, arranged snake-style
+  const cells = [];
+  for(let i=0;i<TOTAL;i++) cells.push(i);
+  // Snake: row 0 L->R, row 1 R->L, etc.
+  const rows = [];
+  for(let r=0;r*cols<TOTAL;r++){
+    const start=r*cols, end=Math.min(start+cols,TOTAL);
+    const row = cells.slice(start,end);
+    if(r%2===1) row.reverse();
+    rows.push(row);
+  }
+  // Render bottom row first
+  rows.reverse().forEach(row=>{
+    row.forEach(idx=>{
+      const def = cellDef[idx] || {type:'normal',icon:'',label:''};
+      const el = document.createElement('div');
+      el.className = 'cell '+def.type;
+      el.id = 'cell-'+idx;
+      el.innerHTML = `
+        <span class="cell-num">${idx===0?'GO':idx===29?'FIN':idx}</span>
+        <span class="cell-icon">${def.icon||''}</span>
+        <span class="cell-label">${def.label||''}</span>
+      `;
+      board.appendChild(el);
+    });
+  });
+  updateToken();
+}
+
+function updateToken(){
+  document.querySelectorAll('.player-token').forEach(t=>t.remove());
+  const cell = document.getElementById('cell-'+pos);
+  if(!cell) return;
+  const token = document.createElement('div');
+  token.className = 'player-token';
+  token.textContent = '💜';
+  cell.appendChild(token);
+  cell.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});
+}
+
+function updateStats(){
+  document.getElementById('stat-pos').textContent = pos;
+  document.getElementById('stat-rolls').textContent = rolls;
+  document.getElementById('stat-score').textContent = score;
+}
+
+// ============ DICE ============
+function rollDice(){
+  const btn = document.getElementById('dice-btn');
+  btn.disabled = true;
+  btn.textContent = '🎲 …';
+  setTimeout(()=>{
+    const die = Math.ceil(Math.random()*6);
+    rolls++;
+    addLog(`🎲 Tu lances le dé… <strong>${die}</strong> !`);
+    movePlayer(die);
+  },400);
+}
+
+function movePlayer(steps){
+  let moved = 0;
+  const interval = setInterval(()=>{
+    if(moved>=steps){
+      clearInterval(interval);
+      landOn(pos);
+      return;
+    }
+    pos = Math.min(pos+1, 29);
+    updateToken();
+    updateStats();
+    moved++;
+    if(pos===29){clearInterval(interval);landOn(29);}
+  },160);
+}
+
+function landOn(p){
+  const def = cellDef[p];
+  const type = def ? def.type : 'normal';
+
+  if(p===29){ showEnd(); return; }
+
+  if(type==='joe'){
+    score+=10;
+    updateStats();
+    const card = randItem(joeCards);
+    showPopup({
+      headerClass: card.color,
+      icon: card.icon,
+      title: card.title,
+      subtitle: 'Joe & The Juice ☕',
+      html: `<p class="card-text">${card.text}</p>`,
+      onClose: ()=>{ pos=Math.min(pos+card.bonus,29); updateToken(); updateStats(); addLog(`☕ Joe & The Juice : +${card.bonus} cases bonus !`); if(pos===29) showEnd(); else unlockDice(); }
+    });
+    addLog(`☕ Case Joe & The Juice ! Pioche une carte…`);
+  } else if(type==='boost'){
+    score+=5;
+    const card = randItem(boostCards);
+    const amt = def.label.match(/\d+/) ? parseInt(def.label.match(/\d+/)[0]) : 2;
+    showPopup({
+      headerClass: card.color,
+      icon: card.icon,
+      title: card.title,
+      subtitle: `Avance de ${amt} cases ⚡`,
+      html: `<p class="card-text">${card.text} Tu avances de <strong>${amt} cases</strong> !</p>`,
+      onClose: ()=>{ pos=Math.min(pos+amt,29); updateToken(); updateStats(); addLog(`⚡ Boost ! +${amt} cases.`); if(pos===29) showEnd(); else unlockDice(); }
+    });
+  } else if(type==='trap'){
+    const card = randItem(trapCards);
+    const amt = def.label.match(/\d+/) ? parseInt(def.label.match(/\d+/)[0]) : 2;
+    showPopup({
+      headerClass: card.color,
+      icon: card.icon,
+      title: card.title,
+      subtitle: `Recule de ${amt} cases 😬`,
+      html: `<p class="card-text">${card.text} Tu recules de <strong>${amt} cases</strong>.</p>`,
+      onClose: ()=>{ pos=Math.max(pos-amt,0); updateToken(); updateStats(); addLog(`😬 Piège ! -${amt} cases.`); unlockDice(); }
+    });
+  } else if(type==='question'){
+    const q = randItem(allQuestions);
+    answeredQ = false;
+    let qHTML = '';
+    if(q.img){
+      qHTML += `<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+        <img src="${q.img}" alt="${q.imgAlt}" class="album-img" onerror="this.style.display='none'"/>
+        <p class="card-text" style="margin:0">${q.q}</p>
+      </div>`;
+    } else {
+      qHTML += `<p class="card-text">${q.q}</p>`;
+    }
+    qHTML += `<div class="q-options" id="q-opts">`;
+    q.opts.forEach((opt,i)=>{ qHTML+=`<button class="q-opt" onclick="pickAnswer(${i},${q.ans},${q.bonus},'${q.fact.replace(/'/g,"\\'")}',this)">${opt}</button>`; });
+    qHTML += `</div>`;
+    showPopup({
+      headerClass: q.color,
+      icon: q.icon,
+      title: q.cat,
+      subtitle: 'Question musique & culture',
+      html: qHTML,
+      onClose: ()=>{ unlockDice(); },
+      lockOk: true,
+    });
+    addLog(`🎵 Case Question ! Tu connais la réponse ?`);
+  } else {
+    // normal or start
+    addLog(`✅ Case ${p} — on continue !`);
+    unlockDice();
+  }
+}
+
+function pickAnswer(idx, correct, bonus, fact, el){
+  if(answeredQ) return;
+  answeredQ = true;
+  const opts = document.querySelectorAll('.q-opt');
+  opts.forEach((o,i)=>{
+    o.disabled=true;
+    if(i===correct) o.classList.add('q-correct');
+    else if(i===idx && idx!==correct) o.classList.add('q-wrong');
+  });
+  const fb = document.getElementById('pop-feedback');
+  fb.style.display='block';
+  const ok = document.getElementById('pop-ok');
+  ok.style.display='inline-flex';
+  if(idx===correct){
+    fb.textContent = '✅ '+fact;
+    score+=15;
+    updateStats();
+    pos=Math.min(pos+bonus,29);
+    updateToken(); updateStats();
+    addLog(`🎵 Bonne réponse ! +${bonus} cases et +15 points.`);
+    popupCallback = ()=>{ if(pos===29) showEnd(); else unlockDice(); };
+  } else {
+    fb.textContent = '❌ Pas cette fois ! '+fact;
+    addLog(`🎵 Mauvaise réponse… mais tu apprends !`);
+    popupCallback = ()=>{ unlockDice(); };
+  }
+}
+
+// ============ POPUP ============
+function showPopup({headerClass, icon, title, subtitle, html, onClose, lockOk=false}){
+  popupCallback = onClose;
+  document.getElementById('pop-header').className = 'popup-header '+(headerClass||'pink-h');
+  document.getElementById('pop-icon').textContent = icon||'✨';
+  document.getElementById('pop-title').textContent = title||'';
+  document.getElementById('pop-subtitle').textContent = subtitle||'';
+  document.getElementById('pop-text').innerHTML = '';
+  document.getElementById('pop-q-zone').innerHTML = html||'';
+  document.getElementById('pop-feedback').style.display='none';
+  document.getElementById('pop-feedback').textContent='';
+  const okBtn = document.getElementById('pop-ok');
+  okBtn.style.display = lockOk ? 'none' : 'inline-flex';
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closePopup(){
+  document.getElementById('overlay').classList.remove('open');
+  if(popupCallback){ const cb=popupCallback; popupCallback=null; cb(); }
+}
+
+function unlockDice(){
+  const btn = document.getElementById('dice-btn');
+  btn.disabled = false;
+  btn.textContent = '🎲 Lancer le dé';
+}
+
+// ============ LOG ============
+function addLog(msg){
+  const area = document.getElementById('log-area');
+  const entry = document.createElement('div');
+  entry.className='log-entry';
+  entry.innerHTML = msg;
+  area.appendChild(entry);
+  area.scrollTop = area.scrollHeight;
+}
+
+// ============ SCREENS ============
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startGame(){
+  pos=0; rolls=0; score=0;
+  show('game');
+  buildBoard();
+  updateStats();
+  unlockDice();
+}
+
+function showEnd(){
+  show('endscreen');
+  document.getElementById('e-rolls').textContent=rolls;
+  document.getElementById('e-score').textContent=score;
+}
+
+function restart(){
+  show('splash');
+}
+</script>
+</body>
+</html>
